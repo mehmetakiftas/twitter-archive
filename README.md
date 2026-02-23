@@ -5,7 +5,7 @@
 ![Node.js](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen)
 ![PostgreSQL](https://img.shields.io/badge/postgresql-%3E%3D14.0-blue)
 
-[🇹🇷 Türkçe](#türkçe) | [🇬🇧 English](#english)
+[Türkçe](#türkçe) | [English](#english)
 
 ---
 
