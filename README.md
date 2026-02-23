@@ -51,7 +51,7 @@
 
 1. **Clone the repository**
    ```bash
-   git clone <your-repo-url>
+   git clone https://github.com/mehmetakiftas/twitter-archive
    cd twitter-archive
    ```
 
@@ -269,7 +269,7 @@ _This project is designed for local, personal use. It includes no authentication
 
 1. **Depoyu klonlayın**
    ```bash
-   git clone <your-repo-url>
+   git clone https://github.com/mehmetakiftas/twitter-archive
    cd twitter-archive
    ```
 
