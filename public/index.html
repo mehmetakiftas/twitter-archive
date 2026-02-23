@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter Archive</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h1><a href="index.html" class="logo-link">Archive</a></h1>
+                <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-view="tweets">
+                    <span class="nav-icon">🐦</span>
+                    <span>All Tweets</span>
+                </a>
+                <a href="calendar.html" class="nav-item">
+                    <span class="nav-icon">📅</span>
+                    <span>Calendar</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-section">
+                <div class="section-header">
+                    <h3>Categories</h3>
+                    <button class="btn-icon" id="addCategoryBtn" title="Add Category">+</button>
+                </div>
+                <div id="categoryList" class="category-list"></div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Stats</h3>
+                <div id="statsPanel" class="stats-panel"></div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+                
+                <div class="search-filters">
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="Search tweets..." />
+                        <button id="searchBtn" class="btn-search">🔍</button>
+                    </div>
+                    
+                    <div class="date-filters">
+                        <input type="date" id="startDate" placeholder="Start date" />
+                        <span class="date-separator">to</span>
+                        <input type="date" id="endDate" placeholder="End date" />
+                        <button id="applyFilters" class="btn-primary">Filter</button>
+                        <button id="clearFilters" class="btn-secondary">Clear</button>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 0.5rem;">
+                    <button id="exportBtn" class="btn-secondary">Export</button>
+                    <button id="addTweetBtn" class="btn-primary btn-add-tweet">+ Add Tweet</button>
+                </div>
+            </header>
+
+            <div class="tweets-container" id="tweetsContainer">
+                <div class="loading" id="loading">Loading tweets...</div>
+            </div>
+
+            <div class="pagination" id="pagination"></div>
+        </main>
+    </div>
+
+    <!-- Add Tweet Modal -->
+    <div class="modal" id="addTweetModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add Tweet</h2>
+                <button class="modal-close" id="closeAddTweetModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="tweetUrl">Tweet URL</label>
+                    <input type="url" id="tweetUrl" placeholder="https://twitter.com/user/status/123456789" />
+                </div>
+                <div class="form-group">
+                    <label>Categories (optional)</label>
+                    <div id="modalCategoryList" class="checkbox-list"></div>
+                </div>
+                <div id="addTweetError" class="error-message"></div>
+                <div id="addTweetSuccess" class="success-message"></div>
+            </div>
+            <div class="modal-footer">
+                <button id="cancelAddTweet" class="btn-secondary">Cancel</button>
+                <button id="submitTweet" class="btn-primary">Archive Tweet</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Category Modal -->
+    <div class="modal" id="addCategoryModal">
+        <div class="modal-content modal-small">
+            <div class="modal-header">
+                <h2>Add Category</h2>
+                <button class="modal-close" id="closeAddCategoryModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="categoryName">Category Name</label>
+                    <input type="text" id="categoryName" placeholder="Enter category name" />
+                </div>
+                <div id="addCategoryError" class="error-message"></div>
+            </div>
+            <div class="modal-footer">
+                <button id="cancelAddCategory" class="btn-secondary">Cancel</button>
+                <button id="submitCategory" class="btn-primary">Add</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rename Category Modal -->
+    <div class="modal" id="renameCategoryModal">
+        <div class="modal-content modal-small">
+            <div class="modal-header">
+                <h2>Rename Category</h2>
+                <button class="modal-close" id="closeRenameCategoryModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="renameCategoryName">Category Name</label>
+                    <input type="text" id="renameCategoryName" placeholder="Enter new name" />
+                </div>
+                <div id="renameCategoryError" class="error-message"></div>
+            </div>
+            <div class="modal-footer">
+                <button id="cancelRenameCategory" class="btn-secondary">Cancel</button>
+                <button id="submitRenameCategory" class="btn-primary">Rename</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Categories Modal -->
+    <div class="modal" id="editCategoriesModal">
+        <div class="modal-content modal-small">
+            <div class="modal-header">
+                <h2>Edit Tweet Categories</h2>
+                <button class="modal-close" id="closeEditCategoriesModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="editCategoryList" class="checkbox-list"></div>
+            </div>
+            <div class="modal-footer">
+                <button id="cancelEditCategories" class="btn-secondary">Cancel</button>
+                <button id="saveCategories" class="btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm Delete Modal -->
+    <div class="modal" id="confirmDeleteModal">
+        <div class="modal-content modal-small">
+            <div class="modal-header">
+                <h2>Delete Tweet</h2>
+                <button class="modal-close" id="closeConfirmDeleteModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this tweet? This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <button id="cancelDelete" class="btn-secondary">Cancel</button>
+                <button id="confirmDelete" class="btn-danger">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Existing Tweet Modal -->
+    <div class="modal" id="existingTweetModal">
+        <div class="modal-content modal-small">
+            <div class="modal-header">
+                <h2>Tweet Already Exists</h2>
+                <button class="modal-close" id="closeExistingTweetModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>This tweet is already in your archive. Would you like to add it to additional categories?</p>
+                <div id="existingCategoryList" class="checkbox-list"></div>
+            </div>
+            <div class="modal-footer">
+                <button id="cancelExisting" class="btn-secondary">Cancel</button>
+                <button id="confirmExisting" class="btn-primary">Add to Categories</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
