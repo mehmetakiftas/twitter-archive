@@ -13,7 +13,6 @@
 
 ## Features
 
-### Core Functionality
 - Archive tweets by URL with automatic oEmbed fetching and parsing
 - Custom categories - Create, rename, organize tweets your way
 - Full-text search with emoji support
@@ -21,15 +20,6 @@
 - Statistics dashboard tracking archive growth
 - Fully responsive design for mobile and desktop
 - Export all tweets as JSON backup
-
-### Technical Highlights
-- Lightning fast - Vanilla JS, no framework overhead
-- Transaction safety - Database integrity guaranteed
-- Smart caching - localStorage + response compression
-- Rate limiting - Protection against spam
-- Raw SQL - Full control, maximum performance
-- Local-first - No auth complexity, no cloud dependencies
-- URL validation and 10-second fetch timeout for security
 
 ## Tech Stack
 
@@ -157,7 +147,6 @@ The system will:
 
 - Click the **"Export"** button in the top bar
 - Downloads a JSON file with all your tweets and categories
-- Use this for backups or data portability
 
 ## Architecture
 
@@ -183,17 +172,6 @@ The system will:
 └─────────────────────────────────────────────┘
 ```
 
-## Skills Demonstrated
-
-This project showcases:
-- Backend Development - RESTful API design with Fastify
-- Database Design - Normalized schema, proper indexing, raw SQL
-- Frontend Engineering - Responsive UI, state management, async operations
-- API Integration - Twitter oEmbed API consumption
-- Performance Optimization - Caching, compression, bulk operations, parallel loading
-- Error Handling - Transaction management, graceful failures
-- UX Design - Dark mode, mobile-first, intuitive interface
-
 ## Key Implementation Details
 
 - **Snowflake ID Decoding** - Extracts tweet timestamps from Twitter's Snowflake IDs
@@ -213,12 +191,6 @@ This project showcases:
 - Only main tweet content is stored (doesn't follow threads)
 - Twitter embed loading depends on Twitter's servers (can be slow)
 
-## Acknowledgments
-
-- Twitter/X for the oEmbed API
-- Fastify team for the excellent framework
-- PostgreSQL community
-
 ---
 
 _This project is designed for local, personal use. It includes no authentication or multi-user features by design._
@@ -231,7 +203,6 @@ _This project is designed for local, personal use. It includes no authentication
 
 ## Özellikler
 
-### Ana Özellikler
 - URL ile tweet arşivleme - otomatik oEmbed çekme ve ayrıştırma
 - Özel kategoriler - Kendi yönteminizle oluşturun, yeniden adlandırın, düzenleyin
 - Emoji desteğiyle tam metin arama
@@ -240,16 +211,7 @@ _This project is designed for local, personal use. It includes no authentication
 - Mobil ve masaüstü için tam responsive tasarım
 - Tüm tweetleri JSON olarak dışa aktarma
 
-### Teknik Özellikler
-- Çok hızlı - Vanilla JS, framework yükü yok
-- Transaction güvenliği - Veritabanı bütünlüğü garantili
-- Akıllı önbellekleme - localStorage + yanıt sıkıştırma
-- Hız sınırlama - Spam koruması
-- Raw SQL - Tam kontrol, maksimum performans
-- Yerel öncelikli - Kimlik doğrulama karmaşıklığı yok, bulut bağımlılığı yok
-- URL doğrulama ve güvenlik için 10 saniyelik fetch zaman aşımı
-
-## Teknoloji Yığını
+## Kullanılan Teknolojiler
 
 | Katman | Teknoloji | Neden? |
 |--------|-----------|--------|
@@ -375,7 +337,6 @@ Sistem şunları yapacak:
 
 - Üst çubuktaki **"Export"** düğmesine tıklayın
 - Tüm tweetleriniz ve kategorilerinizle bir JSON dosyası indirir
-- Yedeklemeler veya veri taşınabilirliği için kullanın
 
 ## Mimari
 
@@ -401,17 +362,6 @@ Sistem şunları yapacak:
 └─────────────────────────────────────────────┘
 ```
 
-## Gösterilen Yetenekler
-
-Bu proje şunları sergiler:
-- Backend Geliştirme - Fastify ile RESTful API tasarımı
-- Veritabanı Tasarımı - Normalize şema, uygun indeksleme, raw SQL
-- Frontend Mühendisliği - Responsive UI, durum yönetimi, async işlemler
-- API Entegrasyonu - Twitter oEmbed API tüketimi
-- Performans Optimizasyonu - Önbellekleme, sıkıştırma, toplu işlemler, paralel yükleme
-- Hata İşleme - Transaction yönetimi, zarif hatalar
-- UX Tasarımı - Karanlık mod, mobil öncelikli, sezgisel arayüz
-
 ## Önemli Uygulama Detayları
 
 - **Snowflake ID Çözme** - Twitter'ın Snowflake ID'lerinden tweet zaman damgalarını çıkarır
@@ -430,12 +380,6 @@ Bu proje şunları sergiler:
 - Tweet'in herkese açık olması gerekir (oEmbed özel/silinmiş tweetler için çalışmaz)
 - Yalnızca ana tweet içeriği saklanır (thread'leri takip etmez)
 - Twitter embed yükleme Twitter'ın sunucularına bağlıdır (yavaş olabilir)
-
-## Teşekkürler
-
-- oEmbed API için Twitter/X
-- Mükemmel framework için Fastify ekibi
-- PostgreSQL topluluğu
 
 ---
 
