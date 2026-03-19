@@ -18,7 +18,11 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const fastify = Fastify({
-    logger: false
+    logger: {
+        transport: {
+            target: 'pino-pretty'
+        }
+    }
 });
 
 await fastify.register(cors, {
@@ -67,31 +71,23 @@ fastify.get('/health', async () => {
 
 const start = async () => {
     try {
-        const dbHealthy = await testConnection();
-        if (!dbHealthy) {
-            console.error('Failed to connect to database. Please check your configuration.');
-            process.exit(1);
-        }
-        console.log('Database connection verified.');
-
         const port = process.env.PORT || 3000;
         await fastify.listen({ port, host: '0.0.0.0' });
-        console.log(`Server running at http://localhost:${port}`);
     } catch (err) {
-        console.error('Failed to start server:', err.message);
+        fastify.log.error(err);
         process.exit(1);
     }
 };
 
 const gracefulShutdown = async (signal) => {
-    console.log(`\n${signal} received, shutting down gracefully...`);
+    fastify.log.info(`${signal} received, shutting down gracefully...`);
     try {
         await fastify.close();
         await closePool();
-        console.log('Server closed successfully');
+        fastify.log.info('Server closed successfully');
         process.exit(0);
     } catch (err) {
-        console.error('Error during shutdown:', err.message);
+        fastify.log.error(err, 'Error during shutdown');
         process.exit(1);
     }
 };
